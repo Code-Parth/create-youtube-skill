@@ -21,6 +21,8 @@ If `yt-dlp` isn't installed, install it first: `pip install -r <skill-dir>/scrip
 
 The script prints transcript JSON to stdout on success, or an error JSON to stderr on failure. **Read `references/transcript-format.md` for the exact output shape and the full error-code table before handling failures** — do not guess at what an error means or invent transcript content when extraction fails. If the video has no captions, is unavailable, or yt-dlp gets blocked, tell the user plainly what happened and stop; don't proceed to drafting a skill from nothing.
 
+Keep the raw JSON output around (don't discard it after this step) — it gets written alongside the finished skill in Step 5 so the user can study the full source material later, not just whatever excerpt made it into the drafted skill.
+
 ## Step 2 — Skim the transcript, form a hypothesis
 
 Read the transcript segments plus the video's title/channel. Before asking the user anything, work out candidate scopes for what this video could become a skill for:
@@ -52,6 +54,8 @@ With the transcript content and the user's answers from Step 3 in hand, this is 
 ## Step 5 — Write the finished skill
 
 Write the finished skill into the **current project root** at `.claude/skills/<skill-name>/` (create the directory if needed). This is the point of the whole workflow — the skill must be immediately usable in this project, not left in a temp location or requiring a separate install step.
+
+Also save the full raw transcript JSON from Step 1 into that same skill directory, at `references/source-transcript.json`. The drafted skill only ever captures a curated slice of the video — the full transcript is worth keeping so the user (or a future skill-creator iteration) can go back to the original source material without re-fetching or re-running yt-dlp. This is reference material, not something `SKILL.md` needs to load by default — don't have the skill's own trigger workflow read this file at runtime; it's there for humans (or a future editing pass) to consult on demand.
 
 ## Step 6 — Report back
 
