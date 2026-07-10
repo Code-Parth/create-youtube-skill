@@ -1,6 +1,6 @@
 # Create YouTube Skill
 
-[skills.sh](https://skills.sh/Code-Parth/create-youtube-skill)
+[![skills.sh](https://skills.sh/b/Code-Parth/create-youtube-skill)](https://skills.sh/Code-Parth/create-youtube-skill)
 
 A skill that turns a YouTube video into a ready-to-use Claude Code skill: it extracts the video's transcript with `yt-dlp`, interviews you about scope and triggers using what the video actually covers, then drafts and writes a brand-new skill straight into your project.
 
@@ -14,8 +14,6 @@ The skill lives at the repo root and includes:
 - `scripts/fetch_transcript.py`: `yt-dlp`-based transcript extraction, cleanup, and merge pipeline.
 - `references/transcript-format.md`: transcript JSON schema and the error-code table for failure handling.
 
-
-
 ## What It Does
 
 - Accepts a full YouTube URL (`youtube.com/watch?v=...`, `youtu.be/...`, `/shorts/...`) or a bare 11-character video ID.
@@ -24,8 +22,6 @@ The skill lives at the repo root and includes:
 - Hands off to the `[skill-creator](https://github.com/anthropics/claude-code)` plugin (when installed) to draft, test, and evaluate the new skill through its full loop; falls back to a direct draft if `skill-creator` isn't available.
 - Writes the finished skill into the current project's `.claude/skills/<name>/`, ready to invoke immediately — no separate install step.
 - Distinguishes real failure modes (`no_captions`, `unavailable`, `blocked`) instead of failing silently or inventing transcript content.
-
-
 
 ## Requirements
 
@@ -100,8 +96,6 @@ Video metadata (`id`, `title`, `channel_name`, `channel_id`) is included alongsi
 - Each run downloads captions into a fresh temporary directory that's always cleaned up, even on failure — concurrent invocations against different videos are safe, unlike a naive current-working-directory approach.
 - Extraction relies entirely on YouTube's own caption tracks; there's no audio transcription fallback if a video has no captions at all.
 - This skill does not draft, test, or write the resulting skill itself — that's delegated to `skill-creator` so generated skills follow the same anatomy and eval loop as any other Claude Code skill.
-
-
 
 ## Source Inspiration
 
