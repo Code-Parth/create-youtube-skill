@@ -8,7 +8,7 @@ A skill that turns a YouTube video into a ready-to-use Claude Code skill: it ext
 npx skills add Code-Parth/create-youtube-skill
 ```
 
-The skill lives at the repo root and includes:
+The skill lives in [`create-youtube-skill/`](create-youtube-skill/) and includes:
 
 - `SKILL.md`: workflow and trigger instructions.
 - `scripts/fetch_transcript.py`: `yt-dlp`-based transcript extraction, cleanup, and merge pipeline.
@@ -38,7 +38,7 @@ If `yt-dlp` is missing, the script stops with a clear message rather than failin
 Install it directly:
 
 ```bash
-pip install -r scripts/requirements.txt
+pip install -r create-youtube-skill/scripts/requirements.txt
 ```
 
 Once installed, invoke it naturally, for example:
@@ -58,20 +58,20 @@ Claude will fetch the transcript, ask a couple of clarifying questions grounded 
 Run the bundled script directly:
 
 ```bash
-python3 scripts/fetch_transcript.py <youtube-url-or-video-id> [--lang en]
+python3 create-youtube-skill/scripts/fetch_transcript.py <youtube-url-or-video-id> [--lang en]
 ```
 
 Examples:
 
 ```bash
 # Full URL
-python3 scripts/fetch_transcript.py "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+python3 create-youtube-skill/scripts/fetch_transcript.py "https://www.youtube.com/watch?v=dQw4w9WgXcQ"
 
 # Bare video ID
-python3 scripts/fetch_transcript.py dQw4w9WgXcQ
+python3 create-youtube-skill/scripts/fetch_transcript.py dQw4w9WgXcQ
 
 # Non-English captions
-python3 scripts/fetch_transcript.py dQw4w9WgXcQ --lang es
+python3 create-youtube-skill/scripts/fetch_transcript.py dQw4w9WgXcQ --lang es
 ```
 
 Important options:
@@ -79,7 +79,7 @@ Important options:
 - `<youtube-url-or-video-id>`: full YouTube URL or bare 11-character video ID.
 - `--lang CODE`: caption language to request; default `en`. No multi-language fallback — a video with only Spanish captions requires `--lang es`.
 
-On success, the script prints a single JSON object to stdout: `{"video": {...}, "segments": [...]}`. On failure, it prints a JSON error object to stderr and exits non-zero. See `[references/transcript-format.md](references/transcript-format.md)` for the exact schema and the full error-code table (`no_captions`, `unavailable`, `blocked`, `unknown`).
+On success, the script prints a single JSON object to stdout: `{"video": {...}, "segments": [...]}`. On failure, it prints a JSON error object to stderr and exits non-zero. See [`create-youtube-skill/references/transcript-format.md`](create-youtube-skill/references/transcript-format.md) for the exact schema and the full error-code table (`no_captions`, `unavailable`, `blocked`, `unknown`).
 
 ## Transcript Output
 
